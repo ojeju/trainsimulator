@@ -1,0 +1,46 @@
+/*
+ * pins_config.h
+ *
+ *  Created on: Dec 30, 2017
+ *      Author: ojeju
+ */
+
+#include "stm32f4xx_hal.h"
+
+#ifndef PINS_CONFIG_H_
+#define PINS_CONFIG_H_
+
+#define BUTTON_GREEN_IN GPIOA, GPIO_PIN_8 //PA_8
+#define BUTTON_RED_IN GPIOC, GPIO_PIN_9 //PC_9
+#define BUTTON_BLACK_IN GPIOC, GPIO_PIN_8 //PC_8
+
+#define LED_GREEN_OUT GPIOE, GPIO_PIN_4 //PE_4
+#define LED_RED_OUT GPIOE, GPIO_PIN_5 //PE_5
+#define LED_BLUE_OUT GPIOE, GPIO_PIN_6 //PE_6
+
+#define POWER_I_IN GPIOC, GPIO_PIN_1 //PC_1
+#define POWER_II_IN GPIOC, GPIO_PIN_2 //PC_2
+
+#define SPEED_4_IN GPIOD, GPIO_PIN_11 // PD_11
+#define SPEED_3_IN GPIOD, GPIO_PIN_10 // PD_10
+#define SPEED_2_IN GPIOD, GPIO_PIN_9 // PD_9
+#define SPEED_1_IN GPIOD, GPIO_PIN_8 // PD_8
+#define SPEED_0_IN GPIOB, GPIO_PIN_15 // PB_15
+#define SPEED_MINUS_1_IN GPIOB, GPIO_PIN_14 // PB_14
+
+#define LED_METAL_GREEN_OUT GPIOA, GPIO_PIN_1 //PA_1
+#define  LED_METAL_RED_OUT GPIOA, GPIO_PIN_2 //PA_2
+
+#define TOOGLE_BTN_0_IN GPIOB, GPIO_PIN_4 //PB_4
+#define TOOGLE_BTN_1_IN GPIOB, GPIO_PIN_5 //PB_5
+
+#define BUZZER_OUT GPIOB, GPIO_PIN_0 //PB_0
+#define RELAY_OUT GPIOB, GPIO_PIN_1 //PB_1
+
+#define MOTOR_OUT1 GPIOE, GPIO_PIN_7 //PE_7
+#define MOTOR_OUT2 GPIOE, GPIO_PIN_8 //PE_8
+#define MOTOR_EN_OUT // PE9
+
+#define SPEED_INDICATOR // PE11
+
+#endif /* PINS_CONFIG_H_ */

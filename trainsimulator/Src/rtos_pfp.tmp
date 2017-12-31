@@ -1,0 +1,3 @@
+void StartDefaultTask(void const * argument);
+void Dashboard(void const * argument);
+void MotorControl(void const * argument);

@@ -1,0 +1,14 @@
+/* Dashboard function */
+void Dashboard(void const * argument)
+{
+#t/* USER CODE BEGIN Dashboard */
+#t/* USER CODE END Dashboard */
+}
+#n
+/* MotorControl function */
+void MotorControl(void const * argument)
+{
+#t/* USER CODE BEGIN MotorControl */
+#t/* USER CODE END MotorControl */
+}
+#n
