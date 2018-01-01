@@ -44,8 +44,7 @@ Src/main.o: ../Src/main.c \
  /home/ojeju/trainsimulator/trainsimulator/Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  /home/ojeju/trainsimulator/trainsimulator/Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  /home/ojeju/trainsimulator/trainsimulator/Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- /home/ojeju/trainsimulator/trainsimulator/MotorManager/MotorManager.h \
- /home/ojeju/trainsimulator/trainsimulator/Dashboard/DashboardManager.h
+ ../Src/../Motor/Motor.h
 
 /home/ojeju/trainsimulator/trainsimulator/Inc/main.h:
 
@@ -137,6 +136,4 @@ Src/main.o: ../Src/main.c \
 
 /home/ojeju/trainsimulator/trainsimulator/Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 
-/home/ojeju/trainsimulator/trainsimulator/MotorManager/MotorManager.h:
-
-/home/ojeju/trainsimulator/trainsimulator/Dashboard/DashboardManager.h:
+../Src/../Motor/Motor.h:

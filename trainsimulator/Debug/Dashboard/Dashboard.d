@@ -1,4 +1,4 @@
-MotorManager/MotorManager.o: ../MotorManager/MotorManager.c \
+Dashboard/Dashboard.o: ../Dashboard/Dashboard.c \
  /home/ojeju/trainsimulator/trainsimulator/Inc/pins_config.h \
  /home/ojeju/trainsimulator/trainsimulator/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  /home/ojeju/trainsimulator/trainsimulator/Inc/stm32f4xx_hal_conf.h \

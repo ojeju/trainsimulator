@@ -51,8 +51,8 @@ static void MX_GPIO_Init(void)
 #tGPIO_InitStruct.Pull = GPIO_NOPULL;
 #tGPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 #tHAL_GPIO_Init(OTG_FS_PowerSwitchOn_GPIO_Port, &GPIO_InitStruct);
-#n#t/*Configure GPIO pins : PC1 PC2 PC8 PC9 */
-#tGPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_8|GPIO_PIN_9;
+#n#t/*Configure GPIO pins : PC1 PC2 */
+#tGPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2;
 #tGPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 #tGPIO_InitStruct.Pull = GPIO_PULLDOWN;
 #tHAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
@@ -63,8 +63,8 @@ static void MX_GPIO_Init(void)
 #tGPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 #tGPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
 #tHAL_GPIO_Init(PDM_OUT_GPIO_Port, &GPIO_InitStruct);
-#n#t/*Configure GPIO pin : PA0 */
-#tGPIO_InitStruct.Pin = GPIO_PIN_0;
+#n#t/*Configure GPIO pins : PA0 PA8 */
+#tGPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_8;
 #tGPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
 #tGPIO_InitStruct.Pull = GPIO_NOPULL;
 #tHAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -117,6 +117,11 @@ static void MX_GPIO_Init(void)
 #tGPIO_InitStruct.Pull = GPIO_NOPULL;
 #tGPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 #tHAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+#n#t/*Configure GPIO pins : PC6 PC9 */
+#tGPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_9;
+#tGPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+#tGPIO_InitStruct.Pull = GPIO_NOPULL;
+#tHAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 #n#t/*Configure GPIO pins : I2S3_MCK_Pin I2S3_SCK_Pin I2S3_SD_Pin */
 #tGPIO_InitStruct.Pin = I2S3_MCK_Pin|I2S3_SCK_Pin|I2S3_SD_Pin;
 #tGPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -124,11 +129,6 @@ static void MX_GPIO_Init(void)
 #tGPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 #tGPIO_InitStruct.Alternate = GPIO_AF6_SPI3;
 #tHAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-#n#t/*Configure GPIO pin : PA8 */
-#tGPIO_InitStruct.Pin = GPIO_PIN_8;
-#tGPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-#tGPIO_InitStruct.Pull = GPIO_PULLDOWN;
-#tHAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 #n#t/*Configure GPIO pin : VBUS_FS_Pin */
 #tGPIO_InitStruct.Pin = VBUS_FS_Pin;
 #tGPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -160,6 +160,8 @@ static void MX_GPIO_Init(void)
 #tHAL_GPIO_Init(MEMS_INT2_GPIO_Port, &GPIO_InitStruct);
 #n#t/* EXTI interrupt init*/
 #tHAL_NVIC_SetPriority(EXTI0_IRQn, 5, 0);
-#tHAL_NVIC_EnableIRQ(EXTI0_IRQn);#n#n
+#tHAL_NVIC_EnableIRQ(EXTI0_IRQn);#n
+#tHAL_NVIC_SetPriority(EXTI9_5_IRQn, 5, 0);
+#tHAL_NVIC_EnableIRQ(EXTI9_5_IRQn);#n#n
 }
 #n

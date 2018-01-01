@@ -43,7 +43,8 @@ Src/stm32f4xx_it.o: ../Src/stm32f4xx_it.c \
  /home/ojeju/trainsimulator/trainsimulator/Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h \
  /home/ojeju/trainsimulator/trainsimulator/Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  /home/ojeju/trainsimulator/trainsimulator/Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
- /home/ojeju/trainsimulator/trainsimulator/Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
+ /home/ojeju/trainsimulator/trainsimulator/Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
+ /home/ojeju/trainsimulator/trainsimulator/Dashboard/Dashboard.h
 
 /home/ojeju/trainsimulator/trainsimulator/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -134,3 +135,5 @@ Src/stm32f4xx_it.o: ../Src/stm32f4xx_it.c \
 /home/ojeju/trainsimulator/trainsimulator/Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 
 /home/ojeju/trainsimulator/trainsimulator/Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
+
+/home/ojeju/trainsimulator/trainsimulator/Dashboard/Dashboard.h:

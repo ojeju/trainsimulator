@@ -4,17 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c 
+../Motor/Motor.c 
 
 OBJS += \
-./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o 
+./Motor/Motor.o 
 
 C_DEPS += \
-./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.d 
+./Motor/Motor.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/%.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/%.c
+Motor/%.o: ../Motor/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)

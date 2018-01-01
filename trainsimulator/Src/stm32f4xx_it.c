@@ -4,7 +4,7 @@
   * @brief   Interrupt Service Routines.
   ******************************************************************************
   *
-  * COPYRIGHT(c) 2017 STMicroelectronics
+  * COPYRIGHT(c) 2018 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -37,7 +37,7 @@
 #include "cmsis_os.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "Dashboard.h"
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -80,6 +80,31 @@ void EXTI0_IRQHandler(void)
   /* USER CODE BEGIN EXTI0_IRQn 1 */
 
   /* USER CODE END EXTI0_IRQn 1 */
+}
+
+/**
+* @brief This function handles EXTI line[9:5] interrupts.
+*/
+void EXTI9_5_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI9_5_IRQn 0 */
+  if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_6))
+  {
+	  BlackButtonPressed();
+  }else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_8))
+  {
+	  GreenButtonPressed();
+  }else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_9))
+  {
+	  RedButtonPressed();
+  }
+  /* USER CODE END EXTI9_5_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_6);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_9);
+  /* USER CODE BEGIN EXTI9_5_IRQn 1 */
+
+  /* USER CODE END EXTI9_5_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

@@ -1,3 +1,2 @@
 osThreadId defaultTaskHandle;
-osThreadId dashboardHandle;
 osThreadId motorControlHandle;

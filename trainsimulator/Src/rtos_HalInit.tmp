@@ -15,10 +15,6 @@
 #tosThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
 #tdefaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 #n
-#t/* definition and creation of dashboard */
-#tosThreadDef(dashboard, Dashboard, osPriorityNormal, 0, 128);
-#tdashboardHandle = osThreadCreate(osThread(dashboard), NULL);
-#n
 #t/* definition and creation of motorControl */
 #tosThreadDef(motorControl, MotorControl, osPriorityNormal, 0, 128);
 #tmotorControlHandle = osThreadCreate(osThread(motorControl), NULL);

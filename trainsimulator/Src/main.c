@@ -9,7 +9,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2017 STMicroelectronics International N.V. 
+  * Copyright (c) 2018 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -52,15 +52,13 @@
 #include "cmsis_os.h"
 
 /* USER CODE BEGIN Includes */
-#include "MotorManager.h"
-#include "DashboardManager.h"
+#include "../Motor/Motor.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim1;
 
 osThreadId defaultTaskHandle;
-osThreadId dashboardHandle;
 osThreadId motorControlHandle;
 
 /* USER CODE BEGIN PV */
@@ -73,7 +71,6 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM1_Init(void);
 void StartDefaultTask(void const * argument);
-void Dashboard(void const * argument);
 void MotorControl(void const * argument);                                    
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                                 
@@ -115,7 +112,7 @@ int main(void)
   MX_TIM1_Init();
 
   /* USER CODE BEGIN 2 */
-
+  Dashboard_Init();
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -134,10 +131,6 @@ int main(void)
   /* definition and creation of defaultTask */
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
-
-  /* definition and creation of dashboard */
-  osThreadDef(dashboard, Dashboard, osPriorityNormal, 0, 128);
-  dashboardHandle = osThreadCreate(osThread(dashboard), NULL);
 
   /* definition and creation of motorControl */
   osThreadDef(motorControl, MotorControl, osPriorityNormal, 0, 128);
@@ -237,7 +230,7 @@ static void MX_TIM1_Init(void)
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 0;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 0;
+  htim1.Init.Period = 65535;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
@@ -265,7 +258,7 @@ static void MX_TIM1_Init(void)
 
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
   sConfigOC.Pulse = 0;
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;
   sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
@@ -367,8 +360,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(OTG_FS_PowerSwitchOn_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PC1 PC2 PC8 PC9 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_8|GPIO_PIN_9;
+  /*Configure GPIO pins : PC1 PC2 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
@@ -381,8 +374,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
   HAL_GPIO_Init(PDM_OUT_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PA0 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  /*Configure GPIO pins : PA0 PA8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -448,6 +441,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : PC6 PC9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_9;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
   /*Configure GPIO pins : I2S3_MCK_Pin I2S3_SCK_Pin I2S3_SD_Pin */
   GPIO_InitStruct.Pin = I2S3_MCK_Pin|I2S3_SCK_Pin|I2S3_SD_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -455,12 +454,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF6_SPI3;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PA8 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : VBUS_FS_Pin */
   GPIO_InitStruct.Pin = VBUS_FS_Pin;
@@ -500,6 +493,9 @@ static void MX_GPIO_Init(void)
   HAL_NVIC_SetPriority(EXTI0_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
 }
 
 /* USER CODE BEGIN 4 */
@@ -514,7 +510,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-
+	  vTaskSuspend(NULL);
 	  osDelay(200);
 	  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
 	  osDelay(200);
@@ -528,26 +524,14 @@ void StartDefaultTask(void const * argument)
   /* USER CODE END 5 */ 
 }
 
-/* Dashboard function */
-void Dashboard(void const * argument)
-{
-  /* USER CODE BEGIN Dashboard */
-	Init_DashboardManager();
-	for(;;)
-	{
-		DashboardManager();
-	}
-  /* USER CODE END Dashboard */
-}
-
 /* MotorControl function */
 void MotorControl(void const * argument)
 {
   /* USER CODE BEGIN MotorControl */
-	InitMotorManager(&htim1);
+	InitMotorDriver(&htim1);
 	for(;;)
 	{
-		MotorManager();
+		MotorDriver();
 	}
   /* USER CODE END MotorControl */
 }

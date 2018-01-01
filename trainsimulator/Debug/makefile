@@ -10,7 +10,7 @@ RM := rm -rf
 -include sources.mk
 -include startup/subdir.mk
 -include Src/subdir.mk
--include MotorManager/subdir.mk
+-include Motor/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/subdir.mk
